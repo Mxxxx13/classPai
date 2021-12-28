@@ -24,15 +24,15 @@ type Header struct {
 
 // Sub
 type Sub struct {
-	Uid       uint   `json:"id"`
+	Uid      uint   `json:"id"`
 	Username string `json:"username"` // 用户名
 }
 
 // Payload
 type Payload struct {
 	Iss string `json:"iss"` // 发布者
-	Exp int64 `json:"exp"` // 过期时间
-	Iat int64 `json:"iat"` // 颁发时间
+	Exp int64  `json:"exp"` // 过期时间
+	Iat int64  `json:"iat"` // 颁发时间
 	Sub
 }
 
@@ -45,7 +45,7 @@ type JWT struct {
 }
 
 var (
-	key = "mx"	// 密钥
+	key = "mx" // 密钥
 )
 
 // NewJWT 创建jwt
@@ -59,10 +59,10 @@ func NewJWT(id uint, username string) (jwt JWT) {
 	// 初始化Payload
 	jwt.Payload = Payload{
 		Iss: "mx",
-		Exp: time.Now().Add(8*time.Hour).Unix(),
+		Exp: time.Now().Add(7 * 24 * time.Hour).Unix(),
 		Iat: time.Now().Unix(),
 		Sub: Sub{
-			Uid:       id,
+			Uid:      id,
 			Username: username,
 		},
 	}
@@ -70,17 +70,16 @@ func NewJWT(id uint, username string) (jwt JWT) {
 	// 将header和payload序列化并编码
 	h, err := json.Marshal(jwt.Header)
 	if err != nil {
-		log.Println("NewJWT:marshal header:",err)
+		log.Println("NewJWT:marshal header:", err)
 	}
 	baseH := base64.StdEncoding.EncodeToString(h)
 	p, err := json.Marshal(jwt.Payload)
 	if err != nil {
-		log.Println("NewJWT:marshal payload:",err)
+		log.Println("NewJWT:marshal payload:", err)
 	}
 	baseP := base64.StdEncoding.EncodeToString(p)
 
 	source := baseH + "." + baseP
-
 
 	// 将Signature加密编码
 	s := Encryption(source, key)
@@ -90,14 +89,14 @@ func NewJWT(id uint, username string) (jwt JWT) {
 }
 
 // Encryption 加密
-func Encryption(source string,key string) []byte {
+func Encryption(source string, key string) []byte {
 	mac := hmac.New(sha256.New, []byte(key))
 	mac.Write([]byte(source))
 	return mac.Sum(nil)
 }
 
 // CheckJWT 验证token的合法性并更新jwt
-func CheckJWT(token string) (jwt JWT,err error){
+func CheckJWT(token string) (jwt JWT, err error) {
 	err = errors.New("token error")
 	arr := strings.Split(token, ".") // 将header, payload, Signature 分开
 	if len(arr) < 3 {
@@ -145,7 +144,7 @@ func CheckJWT(token string) (jwt JWT,err error){
 	// 加密source后与signature比较验证token合法性
 	source := baseH + "." + baseP
 
-	s2 := Encryption(source,key)
+	s2 := Encryption(source, key)
 	if string(s1) != string(s2) {
 		log.Println("token is illegal")
 		return
@@ -155,10 +154,10 @@ func CheckJWT(token string) (jwt JWT,err error){
 	}
 
 	// 验证token是否过期
-	if jwt.Payload.Exp < time.Now().Unix(){
+	if jwt.Payload.Exp < time.Now().Unix() {
 		log.Println("CheckJWT:token has been expired")
 		err = errors.New("CheckJWT:token has been expired")
 		return
 	}
-	return  jwt,nil
+	return jwt, nil
 }

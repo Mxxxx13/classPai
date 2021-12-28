@@ -12,22 +12,29 @@ import (
 
 	"classPai/dao"
 	"classPai/model"
-	"classPai/util"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(c *gin.Context) (err error){
 	var user model.User
 	user.Username = c.PostForm("username")
+
 	password := c.PostForm("password")
-	user.Password = string(util.Encryption(password,""))	// 将密码加密
+	// 将密码加密
+	hashPassword, err := bcrypt.GenerateFromPassword([]byte(password),bcrypt.DefaultCost)
+	if err != nil{
+		return errors.New("加密失败")
+	}
+	user.Password = string(hashPassword)
+
 	roleStr := c.PostForm("role")
 	user.Role,err = strconv.Atoi(roleStr)
 	err = dao.Register(user)
 	return
 }
 
-// Login 将输入的password和数据库中的password进行比较
+// Login 将输入的password加密后和数据库中的password进行比较
 // 返回uid和error, uid用于生成token
 func Login(c *gin.Context) (uid uint,err error) {
 	username := c.PostForm("username")
@@ -38,8 +45,9 @@ func Login(c *gin.Context) (uid uint,err error) {
 		return
 	}
 	// 对password进行验证
-	if pass != string(util.Encryption(password,"")) {
-		return uid,errors.New("用户名或密码错误")
+	err = bcrypt.CompareHashAndPassword([]byte(pass), []byte(password))
+	if err != nil {
+		return
 	}
 	return
 }

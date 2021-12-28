@@ -23,5 +23,14 @@ func main() {
 	r.GET("/user/:id",controller.ShowUser)
 	login.PUT("/user/:id",controller.AlterUser)
 
+	r.GET("/topic/:id", controller.ShowTopic)
+	login.POST("/topic", controller.UploadTopic)
+	login.PUT("/topic/:id", controller.AlterTopic)
+	login.DELETE("/topic/:id", controller.DeleteTopic)
+	login.PUT("/topic/like/:id", controller.LikeTopic)
 
+	login.POST("/comment",controller.UploadComment)
+	login.DELETE("/comment/:id",controller.DeleteComment)
+
+	r.Run(":8080")
 }

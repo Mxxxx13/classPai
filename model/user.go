@@ -12,7 +12,7 @@ import (
 // User 用户模型
 type User struct {
 	*gorm.Model
-	Username string
+	Username string	 `gorm:"unique"`
 	Password string
 	Role     int // 0表示学生, 1代表老师
 }
