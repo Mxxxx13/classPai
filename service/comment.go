@@ -6,6 +6,7 @@
 package service
 
 import (
+	"errors"
 	"log"
 	"strconv"
 
@@ -89,6 +90,16 @@ func GetChildComments(comments []model.Comment,id int) (CommentResps []model.Com
 func DeleteComment(c *gin.Context) (err error) {
 	strId := c.Param("id")
 	id, err := strconv.Atoi(strId)
+
+	uid,exists := c.Get("uid")
+	if !exists{
+		return errors.New("uid is not exist")
+	}
+
+	if uid.(int) != id {
+		return errors.New("你没有权限删除别人的评论")
+	}
+
 	if err != nil {
 		log.Printf("atoi err:%v\n", err)
 		return

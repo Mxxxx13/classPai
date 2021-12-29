@@ -42,10 +42,6 @@ func Login(c *gin.Context) {
 			"message":msg,
 			"token":jwt.Token,
 		})
-		//data := struct {
-		//	token string
-		//}{token: jwt.Token}
-		//resp.SuccessResp(c, msg, data)
 	}
 }
 

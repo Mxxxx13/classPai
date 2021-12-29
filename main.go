@@ -32,5 +32,8 @@ func main() {
 	login.POST("/comment",controller.UploadComment)
 	login.DELETE("/comment/:id",controller.DeleteComment)
 
+	login.POST("/classroom",controller.CreateClassroom)
+	login.DELETE("/classroom/:id",controller.DeleteClassroom)
+
 	r.Run(":8080")
 }

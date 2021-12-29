@@ -22,6 +22,6 @@ func ConnDB() {
 	db.SingularTable(true)      // 表名为单数
 	db.DB().SetMaxIdleConns(10) // 最大活跃连接数
 	db.DB().SetMaxOpenConns(20) // 最大空闲连接数
-	db.AutoMigrate(&model.User{},&model.Topic{},&model.Comment{})
+	db.AutoMigrate(&model.User{},&model.Topic{},&model.Comment{},&model.Classroom{})
 	DB = db
 }

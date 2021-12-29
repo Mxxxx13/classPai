@@ -24,8 +24,3 @@ type TopicResp struct {
 	Likes       int           `json:"likes"`   // 获赞
 	CommentResp []CommentResp `json:"comments"`
 }
-
-type TopicList struct {
-	Tid   uint   `json:"tid"`   // 话题id
-	Title string `json:"title"` // 标题
-}
