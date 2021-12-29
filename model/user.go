@@ -12,7 +12,7 @@ import (
 // User 用户模型
 type User struct {
 	*gorm.Model
-	Username string	 `gorm:"unique"`
+	Username string `gorm:"unique"`
 	Password string
 	Role     int // 0表示学生, 1代表老师
 }
@@ -21,5 +21,5 @@ type User struct {
 type UserResp struct {
 	Uid      uint   `json:"uid"`      // 用户id
 	Username string `json:"username"` // 用户名
-	Role     string	`json:"role"`
+	Role     string `json:"role"`
 }

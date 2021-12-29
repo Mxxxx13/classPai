@@ -35,5 +35,10 @@ func main() {
 	login.POST("/classroom",controller.CreateClassroom)
 	login.DELETE("/classroom/:id",controller.DeleteClassroom)
 
+	login.GET("/homework/:id",controller.ShowHomework)
+	login.POST("/homework", controller.UploadHomework)
+	login.PUT("/homework/:id", controller.AlterHomework)
+	login.DELETE("/homework/:id", controller.DeleteHomework)
+
 	r.Run(":8080")
 }

@@ -12,5 +12,5 @@ type Classroom struct {
 	*gorm.Model
 	Name    string // 名字
 	Subject string // 科目
-	Tid     uint // 教师id
+	Tid     uint   // 教师id
 }

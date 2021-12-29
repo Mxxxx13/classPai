@@ -8,8 +8,8 @@ package dao
 import "classPai/model"
 
 // UploadTopic 将Topic存入数据库
-func UploadTopic(blog model.Topic) (err error) {
-	if err = DB.Create(&blog).Error; err != nil {
+func UploadTopic(topic model.Topic) (err error) {
+	if err = DB.Create(&topic).Error; err != nil {
 		return
 	}
 	return
