@@ -44,5 +44,10 @@ func main() {
 	login.POST("/sign", controller.Sign)
 	login.GET("/sign/:id", controller.ShowSign)
 
+	login.GET("/score", controller.ShowScore)
+	login.POST("/score", controller.UploadScore)
+	login.PUT("/score/:id", controller.AlterScore)
+	login.DELETE("/score/:id", controller.DeleteScore)
+
 	r.Run(":8080")
 }

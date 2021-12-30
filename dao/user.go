@@ -33,15 +33,6 @@ func GetUid(username string) (uid uint, err error) {
 	return user.ID, nil
 }
 
-//// GetUsername 根据uid查询username
-//func GetUsername(uid uint) (username string, err error) {
-//	var user model.User
-//	if err = DB.Select("username").Where("id = ?", uid).First(&user).Error; err != nil {
-//		return
-//	}
-//	return user.Username, err
-//}
-
 // GetUser
 func GetUser(uid uint) (user model.User,err error) {
 	if err = DB.Where("id = ?", uid).First(&user).Error; err != nil {
