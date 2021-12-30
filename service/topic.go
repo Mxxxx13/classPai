@@ -19,11 +19,18 @@ func UploadTopic(c *gin.Context) (err error) {
 	var topic model.Topic
 	topic.Title = c.PostForm("title")
 	topic.Content = c.PostForm("content")
-	user, exists := c.Get("username")
+
+	uid, exists := c.Get("uid")
 	if !exists {
-		return errors.New("user is not exist")
+		return errors.New("uid is not exist")
 	}
-	topic.Author = user.(string) // 接口断言
+
+	user ,err := dao.GetUser(uid.(uint))
+	if err != nil {
+		return err
+	}
+
+	topic.Author = user.Username
 	err = dao.UploadTopic(topic)
 	return err
 }

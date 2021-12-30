@@ -71,12 +71,12 @@ func GetChildComments(comments []model.Comment,id int) (CommentResps []model.Com
 			// 递归得到子评论
 			ChildComments := GetChildComments(commentsCopy, int(comment.ID))
 			// 构造当前评论
-			username, err := dao.GetUsername(comment.Uid)
+			user, err := dao.GetUser(comment.Uid)
 			if err != nil {
 				return
 			}
 			commentResp := model.CommentResp{
-				Username:      username,
+				Username:      user.Username,
 				Content:       comment.Content,
 				ChildComments: ChildComments,
 			}

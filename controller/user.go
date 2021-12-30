@@ -59,7 +59,7 @@ func ShowUser(c *gin.Context)  {
 func AlterUser(c *gin.Context)  {
 	err := service.AlterUser(c)
 	if err != nil {
-		resp.ErrorResp(c, http.StatusBadRequest, "修改失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "修改失败,用户名已存在")
 	} else {
 		resp.SuccessResp(c, "修改成功")
 	}

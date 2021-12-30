@@ -40,5 +40,9 @@ func main() {
 	login.PUT("/homework/:id", controller.AlterHomework)
 	login.DELETE("/homework/:id", controller.DeleteHomework)
 
+	login.POST("/sign/teacher",controller.UploadSign)
+	login.POST("/sign", controller.Sign)
+	login.GET("/sign/:id", controller.ShowSign)
+
 	r.Run(":8080")
 }

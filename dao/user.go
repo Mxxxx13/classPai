@@ -33,14 +33,14 @@ func GetUid(username string) (uid uint, err error) {
 	return user.ID, nil
 }
 
-// GetUsername 根据uid查询username
-func GetUsername(uid uint) (username string, err error) {
-	var user model.User
-	if err = DB.Select("username").Where("id = ?", uid).First(&user).Error; err != nil {
-		return
-	}
-	return user.Username, err
-}
+//// GetUsername 根据uid查询username
+//func GetUsername(uid uint) (username string, err error) {
+//	var user model.User
+//	if err = DB.Select("username").Where("id = ?", uid).First(&user).Error; err != nil {
+//		return
+//	}
+//	return user.Username, err
+//}
 
 // GetUser
 func GetUser(uid uint) (user model.User,err error) {
@@ -53,9 +53,7 @@ func GetUser(uid uint) (user model.User,err error) {
 // AlterUser
 func AlterUser(username string,uid uint) (err error) {
 	var user model.User
-	if err = DB.Model(&user).Where("id = ?", uid).Updates(model.User{
-		Username: username,
-	}).Error; err != nil {
+	if err = DB.Model(&user).Where("id = ?", uid).Update("username",username).Error; err != nil {
 		return
 	}
 	return

@@ -25,7 +25,7 @@ type Header struct {
 // Sub
 type Sub struct {
 	Uid      uint   `json:"id"`
-	Username string `json:"username"` // 用户名
+	//Username string `json:"username"` // 用户名
 }
 
 // Payload
@@ -63,7 +63,6 @@ func NewJWT(id uint, username string) (jwt JWT) {
 		Iat: time.Now().Unix(),
 		Sub: Sub{
 			Uid:      id,
-			Username: username,
 		},
 	}
 

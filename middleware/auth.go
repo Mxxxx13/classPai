@@ -23,9 +23,8 @@ func LoginRequired(c *gin.Context) {
 		return
 	}
 
-	// 设置id和username方便后续操作
+	// 设置id方便后续操作
 	c.Set("uid", jwt.Payload.Sub.Uid)
-	c.Set("username", jwt.Payload.Sub.Username)
 
 	c.Next()
 }
