@@ -19,7 +19,10 @@ import (
 func UploadComment(c *gin.Context) (err error) {
 	content := c.PostForm("content")
 	bid := c.PostForm("bid")
-	uid, _ := c.Get("uid")
+	uid, exists := c.Get("uid")
+	if !exists {
+		return errors.New("uid is not exist")
+	}
 	pid := c.PostForm("pid")
 
 	bId, err := strconv.Atoi(bid)

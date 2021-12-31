@@ -49,5 +49,8 @@ func main() {
 	login.PUT("/score/:id", controller.AlterScore)
 	login.DELETE("/score/:id", controller.DeleteScore)
 
+	login.POST("/file",controller.UploadFile)
+	login.GET("/file",controller.DownloadFile)
+
 	r.Run(":8080")
 }

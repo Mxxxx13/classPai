@@ -79,7 +79,7 @@ func ShowSign(c *gin.Context) (usernames []string, err error) {
 	for _, sign := range signs {
 		user, err := dao.GetUser(sign.Uid)
 		if err != nil {
-			return
+			return nil,err
 		}
 		usernames = append(usernames, user.Username)
 	}

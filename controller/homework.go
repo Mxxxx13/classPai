@@ -13,38 +13,38 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UploadHomework(c *gin.Context){
+func UploadHomework(c *gin.Context) {
 	err := service.UploadHomework(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"上传失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "上传失败", err)
 	} else {
-		resp.SuccessResp(c,"上传成功")
+		resp.SuccessResp(c, "上传成功")
 	}
 }
 
-func ShowHomework(c *gin.Context){
+func ShowHomework(c *gin.Context) {
 	blog, err := service.ShowHomework(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"操作失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "操作失败", err)
 	} else {
-		resp.SuccessResp(c,"操作成功",blog)
+		resp.SuccessResp(c, "操作成功", blog)
 	}
 }
 
-func AlterHomework(c *gin.Context){
+func AlterHomework(c *gin.Context) {
 	err := service.AlterHomework(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"修改失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "修改失败", err)
 	} else {
-		resp.SuccessResp(c,"修改成功")
+		resp.SuccessResp(c, "修改成功")
 	}
 }
 
-func DeleteHomework(c *gin.Context){
+func DeleteHomework(c *gin.Context) {
 	err := service.DeleteHomework(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"删除失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "删除失败", err)
 	} else {
-		resp.SuccessResp(c,"删除成功")
+		resp.SuccessResp(c, "删除成功")
 	}
 }

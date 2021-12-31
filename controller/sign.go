@@ -13,30 +13,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UploadSign(c *gin.Context){
+func UploadSign(c *gin.Context) {
 	err := service.UploadSign(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"上传失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "上传失败", err)
 	} else {
-		resp.SuccessResp(c,"上传成功")
+		resp.SuccessResp(c, "上传成功")
 	}
 }
 
-func Sign(c *gin.Context){
+func Sign(c *gin.Context) {
 	err := service.Sign(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"上传失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "签到失败", err)
 	} else {
-		resp.SuccessResp(c,"上传成功")
+		resp.SuccessResp(c, "签到成功")
 	}
 }
 
-func ShowSign(c *gin.Context){
+func ShowSign(c *gin.Context) {
 	usernames, err := service.ShowSign(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"操作失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "操作失败", err)
 	} else {
-		resp.SuccessResp(c,"操作成功","签到人员名单如下",usernames)
+		resp.SuccessResp(c, "操作成功", "签到人员名单如下:", usernames)
 	}
 }
-

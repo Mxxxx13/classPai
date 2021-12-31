@@ -13,38 +13,38 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UploadScore(c *gin.Context){
+func UploadScore(c *gin.Context) {
 	err := service.UploadScore(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"上传失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "上传失败", err)
 	} else {
-		resp.SuccessResp(c,"上传成功")
+		resp.SuccessResp(c, "上传成功")
 	}
 }
 
-func ShowScore(c *gin.Context){
+func ShowScore(c *gin.Context) {
 	score, err := service.ShowScore(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"操作失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "操作失败", err)
 	} else {
-		resp.SuccessResp(c,"操作成功",score)
+		resp.SuccessResp(c, "操作成功", score)
 	}
 }
 
-func AlterScore(c *gin.Context){
+func AlterScore(c *gin.Context) {
 	err := service.AlterScore(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"修改失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "修改失败", err)
 	} else {
-		resp.SuccessResp(c,"修改成功")
+		resp.SuccessResp(c, "修改成功")
 	}
 }
 
-func DeleteScore(c *gin.Context){
+func DeleteScore(c *gin.Context) {
 	err := service.DeleteScore(c)
 	if err != nil {
-		resp.ErrorResp(c,http.StatusBadRequest,"删除失败")
+		resp.ErrorResp(c, http.StatusBadRequest, "删除失败", err)
 	} else {
-		resp.SuccessResp(c,"删除成功")
+		resp.SuccessResp(c, "删除成功")
 	}
 }
