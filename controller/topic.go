@@ -32,11 +32,11 @@ func LikeTopic(c *gin.Context) {
 }
 
 func ShowTopic(c *gin.Context) {
-	blog, err := service.ShowTopic(c)
+	topic, err := service.ShowTopic(c)
 	if err != nil {
 		resp.ErrorResp(c, http.StatusBadRequest, "操作失败", err)
 	} else {
-		resp.SuccessResp(c, "操作成功", blog)
+		resp.SuccessResp(c, "操作成功", topic)
 	}
 }
 

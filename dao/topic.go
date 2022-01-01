@@ -18,16 +18,16 @@ func UploadTopic(topic model.Topic) (err error) {
 // LikeTopic 根据Topic id查询like, like+1后更新数据库
 func LikeTopic(id int) (err error) {
 	var topic model.Topic
-	if err = DB.First(&topic, id).Error; err != nil {
+	if err = DB.Where("id = ?", id).First(&topic, id).Error; err != nil {
 		return
 	}
 
 	// 点赞数+1
 	topic.Likes++
-
-	if err = DB.Model(&model.Topic{}).Where("id", id).Update("likes", topic.Likes).Error; err != nil {
+	if err = DB.Save(&topic).Error; err != nil {
 		return
 	}
+
 	return
 }
 
@@ -39,9 +39,9 @@ func ShowTopic(id int) (topic model.Topic, err error) {
 	return topic, nil
 }
 
-// AlterTopic 根据id修改blog
+// AlterTopic
 func AlterTopic(id int, topic model.Topic) (err error) {
-	if err = DB.Model(&topic).Where("id = ?", id).Updates(model.Topic{
+	if err = DB.Model(&topic).Where("id = ?", id).Updates(&model.Topic{
 		Title:   topic.Title,
 		Content: topic.Content,
 	}).Error; err != nil {

@@ -23,6 +23,6 @@ func ConnDB() {
 	db.DB().SetMaxIdleConns(10) // 最大活跃连接数
 	db.DB().SetMaxOpenConns(20) // 最大空闲连接数
 	db.AutoMigrate(&model.User{}, &model.Topic{}, &model.Comment{}, &model.Classroom{},
-		&model.Homework{}, &model.Sign{}, &model.Score{}, &model.File{})
+		&model.Homework{}, &model.Sign{}, &model.Score{}, &model.File{},&model.SignTable{})
 	DB = db
 }

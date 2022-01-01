@@ -7,7 +7,6 @@ package dao
 
 import "classPai/model"
 
-
 // UploadScore
 func UploadScore(score model.Score) (err error) {
 	if err = DB.Create(&score).Error; err != nil {
@@ -17,8 +16,8 @@ func UploadScore(score model.Score) (err error) {
 }
 
 // ShowScore
-func ShowScore(id uint) (scores []model.Score, err error) {
-	if err = DB.Find(&scores, id).Error; err != nil {
+func ShowScore(uid uint) (scores []model.Score, err error) {
+	if err = DB.Where("uid = ?", uid).Find(&scores).Error; err != nil {
 		return
 	}
 	return scores, nil
@@ -26,11 +25,9 @@ func ShowScore(id uint) (scores []model.Score, err error) {
 
 // AlterScore
 func AlterScore(id int, score model.Score) (err error) {
-	if err = DB.Model(&score).Where("id = ?", id).Updates(model.Score{
-		Uid: score.Uid,
-		Username: score.Username,
-		Score:   score.Score,
-		Subject: score.Subject,
+	if err = DB.Model(&score).Where("id = ?", id).Updates(&model.Score{
+		Score:    score.Score,
+		Subject:  score.Subject,
 	}).Error; err != nil {
 		return
 	}

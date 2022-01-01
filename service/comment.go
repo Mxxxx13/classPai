@@ -18,14 +18,14 @@ import (
 // UploadComment
 func UploadComment(c *gin.Context) (err error) {
 	content := c.PostForm("content")
-	bid := c.PostForm("bid")
+	tid := c.PostForm("tid")
 	uid, exists := c.Get("uid")
 	if !exists {
 		return errors.New("uid is not exist")
 	}
 	pid := c.PostForm("pid")
 
-	bId, err := strconv.Atoi(bid)
+	tId, err := strconv.Atoi(tid)
 	if err != nil {
 		return
 	}
@@ -39,7 +39,7 @@ func UploadComment(c *gin.Context) (err error) {
 	comment := model.Comment{
 		Uid:     uid.(uint),
 		Pid:     pId,
-		Bid:     bId,
+		Tid:     tId,
 		Content: content,
 	}
 	err = dao.UploadComment(comment)
@@ -47,10 +47,11 @@ func UploadComment(c *gin.Context) (err error) {
 }
 
 // SplicingComment 拼接评论
-func SplicingComment(bid int) (CommentResps []model.CommentResp) {
-	// 查询id为bid的blog下的所有评论
-	comments, err := dao.GetComments(bid)
+func SplicingComment(tid int) (CommentResps []model.CommentResp) {
+	// 查询id为tid的topic下的所有评论
+	comments, err := dao.GetComments(tid)
 	if err != nil {
+		log.Panic(err)
 		return
 	}
 

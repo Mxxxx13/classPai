@@ -74,10 +74,10 @@ func AlterTopic(c *gin.Context) (err error) {
 		log.Printf("atoi err:%v\n", err)
 		return
 	}
-	var blog model.Topic
-	blog.Title = c.PostForm("title")
-	blog.Content = c.PostForm("content")
-	err = dao.AlterTopic(id, blog)
+	var topic model.Topic
+	topic.Title = c.PostForm("title")
+	topic.Content = c.PostForm("content")
+	err = dao.AlterTopic(id, topic)
 	return err
 }
 

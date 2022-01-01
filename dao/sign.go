@@ -5,7 +5,11 @@
 
 package dao
 
-import "classPai/model"
+import (
+	"fmt"
+
+	"classPai/model"
+)
 
 // UploadSign
 func UploadSign(sign model.Sign) (err error) {
@@ -25,8 +29,9 @@ func Sign(table model.SignTable) (err error) {
 
 // ShowSign
 func ShowSign(sid uint) (signs []model.SignTable,err error) {
-	if err = DB.Where("sid",sid).Find(&signs).Error; err != nil {
+	if err = DB.Where("sid = ?",sid).Find(&signs).Error; err != nil {
 		return
 	}
+	fmt.Println(signs)
 	return
 }

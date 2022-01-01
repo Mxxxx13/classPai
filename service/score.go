@@ -90,8 +90,6 @@ func AlterScore(c *gin.Context) (err error) {
 	}
 
 	var score model.Score
-	score.Username = c.PostForm("username")
-	score.Uid, err = dao.GetUid(score.Username)
 	score.Subject = c.PostForm("subject")
 	scStr := c.PostForm("score")
 	sc ,err := strconv.ParseFloat(scStr,64)

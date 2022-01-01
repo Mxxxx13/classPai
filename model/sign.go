@@ -6,8 +6,6 @@
 package model
 
 import (
-	"time"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -17,7 +15,6 @@ type Sign struct {
 	Tid     uint // 发布签到老师的id
 	Crid    uint // 课堂id
 	Name    string
-	Expired time.Time // 过期时间
 }
 
 // 签到表
